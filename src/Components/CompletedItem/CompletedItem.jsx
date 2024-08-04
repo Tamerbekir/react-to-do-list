@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import CheckIcon from '@mui/icons-material/Check';
+import { IconButton } from '@mui/material';
 
 const CompletedItem = ({ index, handleCompletedListItem }) => {
   const handleCompleted = () => {
@@ -7,7 +9,10 @@ const CompletedItem = ({ index, handleCompletedListItem }) => {
 
   return (
     <div>
-      <button onClick={handleCompleted}>Completed</button>
+      <IconButton>
+        <CheckIcon className='completedIcon' onClick={handleCompleted} />
+      </IconButton>
+      {/* <button onClick={handleCompleted}>Completed</button> */}
     </div>
   );
 };

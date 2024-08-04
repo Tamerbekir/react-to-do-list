@@ -23,13 +23,18 @@ const ToDo = () => {
 
   const [confirmDelete, setConfirmDelete] = useState()
 
+  //props from the edit component where we use a useState to ONLY show the edit form when the user clicks on the edit button- delete and complete will not show
+  const [showOnlyEdit, setShowOnlyEdit] = useState()
+
+
   // const [completedText, setCompletedText] = useState()
 
-  const [error, setError] = useState({
-    item: '',
-    date: '',
-    priority: count
-  })
+  // const [error, setError] = useState({
+  //   item: '',
+  //   date: '',
+  //   priority: count
+  // })
+
 
   // useState for setting the names and values needed for the toDo list
   const [toDoList, setToDoList] = useState({
@@ -79,7 +84,7 @@ const ToDo = () => {
       setNewItemAdded([...newItemAdded, toDoList]);
       // Update the count
       setCount(count + 1);
-      // Clear the todo list after added
+      // Clear the todo list after added but keep adding a +1 to the counter (priority)
       setToDoList({
         item: '',
         notes: '',
@@ -213,22 +218,34 @@ const ToDo = () => {
                 {/* delete component, deletes the index and is passing through the delete item fro the delete component */}
                 {/* Conditionally render based on completion status */}
                 <div className='actionBtns'>
-                  <CompletedItem
-                    index={index}
-                    handleCompletedListItem={handleCompletedListItem}
-                  />
+                  {/* {!showOnlyEdit && (
+                    <CompletedItem
+                      index={index}
+                      handleCompletedListItem={handleCompletedListItem}
+                    />
+                  )} */}
                   {/* <button onClick={handleCompletedListItem}> Completed
                   </button> */}
                   {/* edit component, edit the index and is passing through the edit item from the edit component */}
+                  {!showOnlyEdit && (
+                    <CompletedItem
+                      index={index}
+                      handleCompletedListItem={handleCompletedListItem}
+                    />
+                  )}
                   <EditItem
                     index={index}
                     newItemAdded={newItemAdded}
                     setNewItemAdded={setNewItemAdded}
+                    showOnlyEdit={showOnlyEdit}
+                    setShowOnlyEdit={setShowOnlyEdit}
                   />
-                  <DeleteItem
-                    index={index}
-                    handleDeleteItem={handleDeleteItem}
-                  />
+                  {!showOnlyEdit && (
+                    <DeleteItem
+                      index={index}
+                      handleDeleteItem={handleDeleteItem}
+                    />
+                  )}
                 </div>
               </div>
             ))}

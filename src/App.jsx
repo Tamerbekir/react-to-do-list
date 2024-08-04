@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import ToDo from './Pages/List/List'
 import DateDisplay from './Components/Date/Date'
+import ComingSoon from './Pages/ComingSoon/ComingSoon'
 
 import "./index.css";
 
@@ -11,6 +12,7 @@ function App() {
       <DateDisplay />
       <div>
         <ToDo />
+        <ComingSoon />
       </div>
     </div>
   );

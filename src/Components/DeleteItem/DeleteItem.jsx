@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
 //passing through the index from the list item from the List jsx
 //passing through the handleDeleteIntem to the List jsx to use with out DeleteItem component
 const DeleteItem = ({ index, handleDeleteItem }) => {
@@ -32,9 +32,12 @@ const DeleteItem = ({ index, handleDeleteItem }) => {
   return (
     <div>
       {!confirmDelete && (
-        <button
-          className="deleteItemBtn"
-          onClick={() => setConfirmDelete(true)}> Delete</button>
+        // <button
+        //   className="deleteItemBtn"
+        //   onClick={() => setConfirmDelete(true)}> Delete</button>
+        <IconButton>
+          <DeleteIcon className='deleteIcon' onClick={() => setConfirmDelete(true)} />
+        </IconButton>
       )}
       {confirmDelete && (
         <div>
@@ -51,12 +54,5 @@ const DeleteItem = ({ index, handleDeleteItem }) => {
   )
 }
 
-DeleteItem.propTypes = {
-  index: PropTypes.string
-}
-
-DeleteItem.propTypes = {
-  handleDeleteItem: PropTypes.string
-}
 
 export default DeleteItem

@@ -1,10 +1,18 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton } from '@mui/material';
 
-const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
+
+
+const EditItem = ({ index, newItemAdded, setNewItemAdded, showOnlyEdit, setShowOnlyEdit }) => {
+
+  //useState to confirm if the user wants to save their changes. If false, useState cancels out of the edit form
   const [confirmEdit, setConfirmEdit] = useState(false);
+
+
+  //edit form useState that takes in inputs
   const [editForm, setEditForm] = useState({
     item: '',
     notes: '',
@@ -12,12 +20,17 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
     priority: '',
   });
 
+  //a function to trigger the edit form
   const showEditForm = () => {
+    //a variable that sets the index to be edited
     const itemToEdit = newItemAdded[index];
+    //then we run the useState to show the edit form, using the index of the item we clicked on
     setEditForm(itemToEdit);
+    //then we run the useState to show the confirm options- "save or cancel"
     setConfirmEdit(true);
   };
 
+  //Handling the input fields
   const handleEditFormChange = (event) => {
     const { name, value } = event.target;
     setEditForm({
@@ -26,14 +39,22 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
     });
   };
 
+  //function for saving the item we made changes to
   const saveEditedItem = async () => {
     try {
+      //we take and spread the data from our array of added items
       const updatedList = [...newItemAdded];
+      //we take the array of added items and add that to our setEdit form
       updatedList[index] = editForm;
+      // the new item is added to the array using our useState
       setNewItemAdded(updatedList);
+      //useState for canceling the edit is not closes
       setConfirmEdit(false);
+      //useState for nONLY showing the edit form is now closed (delete and complete buttons return)
+      setShowOnlyEdit(false)
+      // run a success message
       toast.success('Changes saved!', {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -44,6 +65,7 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
         transition: Bounce,
       });
     } catch (error) {
+      //if item is not saved, run error message
       toast.error('There was a problem saving your changes. Please try again later', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -59,17 +81,27 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
     }
   };
 
+  //a function that takes in multiple useStates
   const cancelEdit = () => {
+    //closes out 'cancel' save option
     setConfirmEdit(false);
+    //closes out option to only show edit form (delete and complete options now return)
+    setShowOnlyEdit(false)
   };
+
+
 
   return (
     <div className="editFormDiv">
-      {!confirmEdit && (
-        <button className="editBtn" onClick={showEditForm}>Edit</button>
+      {!confirmEdit && !showOnlyEdit && (
+        // <button className="editBtn" onClick={showEditForm}>Edit</button>
+        <IconButton onClick={() => setShowOnlyEdit(true)}>
+          <EditIcon className='editIcon' onClick={showEditForm} />
+        </IconButton>
       )}
 
-      {confirmEdit && (
+
+      {confirmEdit && showOnlyEdit && (
         <div className="editForm">
           <p className="editItem">Edit your item..</p>
           <input
@@ -112,12 +144,9 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
       )}
     </div>
   );
-};
+}
 
-EditItem.propTypes = {
-  index: PropTypes.number.isRequired,
-  newItemAdded: PropTypes.array.isRequired,
-  setNewItemAdded: PropTypes.func.isRequired,
-};
+
+
 
 export default EditItem;

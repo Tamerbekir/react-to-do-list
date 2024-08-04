@@ -23,17 +23,53 @@
   z-index: 1000;
 }
 
+.comingSoonDiv {
+  text-align: center;
+  background-color: #3d55c27f;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 300px;
+  position: fixed;
+  top: 550px;
+  right: 65%;
+  transform: translateX(-50%);
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+.comingSoonBtn {
+  border-radius: 20px;
+  width: 100%;
+  max-width: 300px;
+  position: fixed;
+  top: 550px;
+  right: 65%;
+  transform: translateX(-50%);
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 1000;
+  text-align: center;
+
+}
+
 .listItem button {
   width: 100%;
+}
+
+.comingText {
+  font-size: 15px;
+  font-weight: normal;
+  color: white;
 }
 
 
 input {
   margin: 5px 0;
   display: block;
-  width: calc(100% - 22px);
-  height: 40px;
-  padding: 10px;
+  width: calc(100% - 0px);
+  height: 55px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -77,6 +113,7 @@ input {
 h1 {
   text-align: center;
 }
+
 
 button {
   margin: 5px;
@@ -123,7 +160,6 @@ button:hover {
 }
 
 
-
 .editForm {
   background-color: #e4e3e3;
   padding: 15px;
@@ -131,6 +167,7 @@ button:hover {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 
 .confirmDelete {
   color: white;
@@ -155,6 +192,20 @@ p {
   font-weight: 900;
 }
 
+.actionBtns {
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+}
+
+/* 
+.comingSoonDiv {
+  width: 40%;
+  background-color: #3d56c2;
+  border: 3px solid #69826e;
+} */
+
+
 @media (max-width: 1300px) {
   .toDoDiv {
     margin: 20px auto;
@@ -170,6 +221,24 @@ p {
     max-width: none;
   }
 
+  .comingSoonDiv {
+    color: white;
+    position: static;
+    transform: none;
+    margin-bottom: 10px;
+    max-width: none;
+    background-color: #3d55c27f;
+  }
+
+  .comingSoonBtn {
+    text-align: center;
+    color: white;
+    position: static;
+    transform: none;
+    margin-bottom: 10px;
+    max-width: none;
+  }
+
   .addToListTag {
     font-size: 20px;
   }
@@ -180,13 +249,7 @@ p {
   }
 
   .actionBtns button {
-    margin-left: 15%;
-  }
-
-  editFormDiv {
-    display: flex;
-    justify-content: center;
-    margin-left: 40%;
+    margin: 5%;
   }
 
 
