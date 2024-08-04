@@ -23,14 +23,8 @@
   z-index: 1000;
 }
 
-.actionBtns {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-button {
-  width: 60;
-  margin: 5px 0;
+.listItem button {
+  width: 100%;
 }
 
 
@@ -180,14 +174,19 @@ p {
     font-size: 20px;
   }
 
-  .actionBtns {
-    display: flex;
-    justify-content: space-evenly;
+  .listItem button {
+    width: 65%;
+    margin: 5px 0;
   }
 
-  button {
-    width: 60;
-    margin: 5px 0;
+  .actionBtns button {
+    margin-left: 15%;
+  }
+
+  editFormDiv {
+    display: flex;
+    justify-content: center;
+    margin-left: 40%;
   }
 
 

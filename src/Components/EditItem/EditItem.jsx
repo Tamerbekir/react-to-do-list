@@ -33,7 +33,7 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
       setNewItemAdded(updatedList);
       setConfirmEdit(false);
       toast.success('Changes saved!', {
-        position: 'bottom-right',
+        position: 'top-right',
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
