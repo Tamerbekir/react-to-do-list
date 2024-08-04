@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteItem from '../../Components/DeleteItem/DeleteItem';
 import EditItem from '../../Components/EditItem/EditItem';
 import CompletedItem from '../../Components/CompletedItem/CompletedItem'
@@ -10,34 +10,34 @@ const ToDo = () => {
   // Adding a count for each time an item is added
   const [count, setCount] = useState(1);
   // useState for adding a new item which is being added to an array
-  const [newItemAdded, setNewItemAdded] = useState([]);
+  const [newItemAdded, setNewItemAdded] = useState(() => {
+    // Taking the newly added item and adding into local storage, called "toDoList"
+    const storedItems = localStorage.getItem('toDoList');
+    //if there are stored items, then parse them and return the values
+    if (storedItems) {
+      return JSON.parse(storedItems)
+      // if there is nothing in local store return an empty array
+    } else {
+      return []
+    }
+  });
 
-  //useState for adding a confirm text once added to the list
-  // const [addedText, setAddedText] = useState()
-
-  //useState for setting text when deleted
-  // const [deletedText, setDeletedText] = useState('')
+  // useEffect for saving the current state of the to-do list to localStorage
+  // Whenever the 'newItemAdded' state changes, the to-do list is converted to a JSON string
+  // and saved under the key 'toDoList' in localStorage.
+  useEffect(() => {
+    localStorage.setItem('toDoList', JSON.stringify(newItemAdded));
+  }, [newItemAdded])
 
   //useState for showing text when the user completed their list
   const [emptyList, setEmptyList] = useState()
 
-  // const [confirmDelete, setConfirmDelete] = useState()
 
   //props from the edit component where we use a useState to ONLY show the edit form when the user clicks on the edit button- delete and complete will not show
   const [showOnlyEdit, setShowOnlyEdit] = useState()
 
   //props from the delete component where we use a useState to ONLY show the delete button when the user clicks on the delete button- edit and complete will not show
   const [showOnlyDelete, setShowOnlyDelete] = useState()
-
-
-  // const [completedText, setCompletedText] = useState()
-
-  // const [error, setError] = useState({
-  //   item: '',
-  //   date: '',
-  //   priority: count
-  // })
-
 
   // useState for setting the names and values needed for the toDo list
   const [toDoList, setToDoList] = useState({
@@ -116,8 +116,6 @@ const ToDo = () => {
     updatedList.splice(index, 1);
     //update useState with the updated Array
     setNewItemAdded(updatedList);
-    //when a to-do is deleted, useState is called with an empty text field which is used in the html
-    // setDeletedText(' ')
     //if the updated list has a length of 0, then use the useState to display text found in the HTMl otherwise useState will not show
     //when deleting, complete text is removed
     // setCompletedText(false)
@@ -153,11 +151,8 @@ const ToDo = () => {
     const updatedList = [...newItemAdded];
     //! Not supposed to be slice- will be added to local storage. Just for now
     updatedList.splice(index, 1);
-    setNewItemAdded(updatedList);
-    //when completing a to do, delete text is removed
-    // setDeletedText(false)
-    //useState for an empty text field used to inform the user the task is complete 
-    // setCompletedText(' ')
+    //update the useState with the new array
+    setNewItemAdded(updatedList)
   };
 
   return (

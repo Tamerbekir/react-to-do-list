@@ -4,6 +4,7 @@ const ComingSoon = () => {
 
   const [comingSoon, setComingSoon] = useState()
 
+
   return (
     <div>
       {!comingSoon && (
@@ -18,8 +19,6 @@ const ComingSoon = () => {
             <br />
             <br />
             See all items that were completed.
-            <br />
-            Saving to local storage.
             <br />
             Priority listed in order - and more!</p>
           <button className="closeBtn" onClick={() => setComingSoon(false)}>Close</button>

@@ -10,9 +10,12 @@ const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete
   //a function for deleting the list item. From our prop, we use the index of the list item as a parameter
   const handleDelete = async () => {
     try {
-      setShowOnlyDelete(false)
+      //deleting the index at which we click on
       handleDeleteItem(index)
+      //confirm delete (cancel) is closed if user deletes item
       setConfirmDelete(false)
+      //useState for hiding all buttons is false *buttons show again*
+      setShowOnlyDelete(false)
     } catch (error) {
       toast.error('There was an issue deleting your item, please try again later', {
         position: 'bottom-right',

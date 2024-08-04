@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import ToDo from './Pages/List/List'
 import DateDisplay from './Components/Date/Date'
 import ComingSoon from './Pages/ComingSoon/ComingSoon'
+import SiteNotes from './Components/SiteNotes/SiteNotes'
 import Footer from './Components/Footer/Footer'
 
 
@@ -16,6 +17,7 @@ function App() {
       </header>
       <div >
         <ToDo />
+        <SiteNotes />
         <ComingSoon />
       </div>
       <Footer />
