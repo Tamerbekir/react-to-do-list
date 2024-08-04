@@ -42,12 +42,14 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded, showOnlyEdit, setShowO
   //function for saving the item we made changes to
   const saveEditedItem = async () => {
     try {
-      //we take and spread the data from our array of added items
+      // Adding the new items so they can be displayed on the page
       const updatedList = [...newItemAdded];
       //we take the array of added items and add that to our setEdit form
       updatedList[index] = editForm;
       // the new item is added to the array using our useState
       setNewItemAdded(updatedList);
+      // Sort the array based on the priority, as it sorts through the items
+      updatedList.sort((item1, item2) => item1.priority - item2.priority);
       //useState for canceling the edit is not closes
       setConfirmEdit(false);
       //useState for nONLY showing the edit form is now closed (delete and complete buttons return)

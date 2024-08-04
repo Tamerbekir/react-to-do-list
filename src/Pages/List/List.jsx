@@ -4,11 +4,10 @@ import EditItem from '../../Components/EditItem/EditItem';
 import CompletedItem from '../../Components/CompletedItem/CompletedItem'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast, Bounce } from 'react-toastify'
+import { Box } from '@mui/material';
 
 
 const ToDo = () => {
-  // Adding a count for each time an item is added
-  const [count, setCount] = useState(1);
   // useState for adding a new item which is being added to an array
   const [newItemAdded, setNewItemAdded] = useState(() => {
     // Taking the newly added item and adding into local storage, called "toDoList"
@@ -21,6 +20,9 @@ const ToDo = () => {
       return []
     }
   });
+
+  // const priorities = [High, Medium, Low]
+
 
   // useEffect for saving the current state of the to-do list to localStorage
   // Whenever the 'newItemAdded' state changes, the to-do list is converted to a JSON string
@@ -44,7 +46,8 @@ const ToDo = () => {
     item: '',
     notes: '',
     date: '',
-    priority: count
+    // priority: count
+    priority: ''
   })
 
   // Handling the change in the input fields
@@ -62,46 +65,62 @@ const ToDo = () => {
       item: '',
       notes: '',
       date: '',
-      priority: count,
+      priority: ''
     })
     //when the function is called, the text is also cleared 
-    setAddedText('')
+    // setAddedText('')
   }
+
+
+  const [error, setError] = useState()
 
 
   // Handling the function that creates the action once the 'add to list' button is clicked
   const handleToDoList = async () => {
     try {
-      toast.success('Added!', {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-      // Adding the new items so they can be displayed on the page
-      setNewItemAdded([...newItemAdded, toDoList]);
-      // Update the count
-      setCount(count + 1);
-      // Clear the todo list after added but keep adding a +1 to the counter (priority)
+      // conditional to ensure user puts in an item in their todo list
+      if (toDoList.item === '') {
+        //if left empty, user will get an alert
+        toast.error('Looks like you forgot to add a task!', {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+      } else {
+        //other wise, success
+        toast.success('Added!', {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        })
+        // Adding the new items so they can be displayed on the page
+        const updatedList = [...newItemAdded, toDoList];
+        // Sort the array based on the priority, as it sorts through the items
+        updatedList.sort((item1, item2) => item1.priority - item2.priority);
+        // Update state with the sorted array
+        setNewItemAdded(updatedList);
+        //if the user is adding to their list, then the list cannot be empty, thus we set the emptyList useState to false and the user is displayed a message
+        setEmptyList(false)
+      }
+      // Clear the todo list after added. However, if the user does not choose a priority, 'no priority' will be displayed when adding. If the user picks a priority it will show that instead
       setToDoList({
         item: '',
         notes: '',
         date: '',
-        priority: count + 1
+        priority: 'No Priority'
       });
-      //When a to-do is added, useState is called to display an open text field where text saying ADDED is displayed within the HTML
-      // setAddedText(' ')
-      // when a to-do is added, the deleted text is cleared via useState
-      // setDeletedText(false)
-      //if the user is adding to their list, then the list cannot be empty, thus we set the emptyList useState to false
-      setEmptyList(false)
-      //if user is adding to the list, the complete text is gone
-      // setCompletedText(false)
     } catch (error) {
       console.log(error);
     }
@@ -169,6 +188,7 @@ const ToDo = () => {
     setNewItemAdded(updatedList)
   };
 
+
   return (
     <div className="toDoDiv">
       <div>
@@ -177,15 +197,16 @@ const ToDo = () => {
             <p className='addToListTag'>Add to your list</p>
             <input
               className="priorityInput"
-              placeholder='Priority..'
+              placeholder='Priority...'
               name='priority'
               type='number'
               value={toDoList.priority}
               onChange={handleToDoChange}
             />
+            {/* <p className='pickAPriorityText'>Pick a priority, or make up your own</p> */}
             <input
               className="ItemInput"
-              placeholder='Add to list..'
+              placeholder='Add task...'
               name='item'
               type='text'
               value={toDoList.item}
@@ -193,7 +214,7 @@ const ToDo = () => {
             />
             <input
               className="notesInput"
-              placeholder='Notes..'
+              placeholder='Notes...'
               name='notes'
               type='text'
               value={toDoList.notes}
@@ -205,11 +226,10 @@ const ToDo = () => {
               name='date'
               type='date'
               value={toDoList.date}
-              onChange={handleToDoChange}
             />
             <div className='addAndClearDiv'>
               {/* calling the function for adding an item */}
-              <button onClick={handleToDoList}>Add To List</button>
+              <button onClick={handleToDoList}>Add Task</button>
               {/* useState for clearing the input fields */}
               <button className='clearBtn' onClick={handleClearFields}>Clear</button>
             </div>
@@ -219,10 +239,10 @@ const ToDo = () => {
             {newItemAdded.map((newItem, index) => (
               <div className="listItem" key={index}>
                 <div className="list">
-                  <p>Priority: {newItem.priority}</p>
-                  <p>To Do: {newItem.item}</p>
-                  <p>Notes: {newItem.notes}</p>
-                  <p>Date: {newItem.date}</p>
+                  <p className='priorityText' > Priority: {newItem.priority}</p>
+                  <p className='toDoText'>Task: {newItem.item}</p>
+                  <p className='notesText' >Notes: {newItem.notes}</p>
+                  <p className='dateText' >Date: {newItem.date}</p>
                 </div>
                 {/* delete component, deletes the index and is passing through the delete item fro the delete component */}
                 <div className='actionBtns'>
