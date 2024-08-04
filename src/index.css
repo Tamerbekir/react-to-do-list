@@ -144,6 +144,9 @@ button:hover {
   background-color: rgb(132, 40, 40);
 }
 
+.footerText {
+  text-align: center;
+}
 
 .list {
   background-color: #fff;

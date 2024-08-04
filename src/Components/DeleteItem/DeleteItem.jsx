@@ -10,6 +10,7 @@ const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete
   //a function for deleting the list item. From our prop, we use the index of the list item as a parameter
   const handleDelete = async () => {
     try {
+      setShowOnlyDelete(false)
       handleDeleteItem(index)
       setConfirmDelete(false)
     } catch (error) {
