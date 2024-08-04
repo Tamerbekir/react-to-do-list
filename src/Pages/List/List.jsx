@@ -21,9 +21,6 @@ const ToDo = () => {
     }
   });
 
-  // const priorities = [High, Medium, Low]
-
-
   // useEffect for saving the current state of the to-do list to localStorage
   // Whenever the 'newItemAdded' state changes, the to-do list is converted to a JSON string
   // and saved under the key 'toDoList' in localStorage.
@@ -46,9 +43,11 @@ const ToDo = () => {
     item: '',
     notes: '',
     date: '',
-    // priority: count
     priority: ''
   })
+
+
+
 
   // Handling the change in the input fields
   const handleToDoChange = (event) => {
@@ -67,12 +66,8 @@ const ToDo = () => {
       date: '',
       priority: ''
     })
-    //when the function is called, the text is also cleared 
-    // setAddedText('')
   }
 
-
-  const [error, setError] = useState()
 
 
   // Handling the function that creates the action once the 'add to list' button is clicked
@@ -197,13 +192,12 @@ const ToDo = () => {
             <p className='addToListTag'>Add to your list</p>
             <input
               className="priorityInput"
-              placeholder='Priority...'
+              placeholder='Priority...(e.g high, low or 1, 5, etc)'
               name='priority'
               type='number'
               value={toDoList.priority}
               onChange={handleToDoChange}
             />
-            {/* <p className='pickAPriorityText'>Pick a priority, or make up your own</p> */}
             <input
               className="ItemInput"
               placeholder='Add task...'
