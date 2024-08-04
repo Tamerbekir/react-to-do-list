@@ -57,8 +57,9 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
 
       {confirmEdit && (
         <div className="editForm">
+          <p className='editItem'>Edit your item..</p>
           <input
-            className="priorityInput"
+            className="editPriorityInput"
             placeholder='Priority..'
             name='priority'
             type='number'
@@ -66,6 +67,7 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
             onChange={handleEditFormChange}
           />
           <input
+            className="editItemInput"
             placeholder='Edit your list..'
             name='item'
             type='text'
@@ -73,6 +75,7 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
             onChange={handleEditFormChange}
           />
           <input
+            className="editNotesInput"
             placeholder='Edit notes..'
             name='notes'
             type='text'
@@ -80,7 +83,7 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded }) => {
             onChange={handleEditFormChange}
           />
           <input
-            className="dateInput"
+            className="editDateInput"
             placeholder='date'
             name='date'
             type='date'
