@@ -28,13 +28,19 @@ const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete
     }
   }
 
+  // a function that triggers when the user clicks on the delete icon (not the delete function)
   const deleteIcon = () => {
+    //useState for only seeing the delete buttons will show
     setShowOnlyDelete(true)
+    //useState for confirming delete button will show
     setConfirmDelete(true)
   }
 
+  //function for canceling out a delete option
   const cancelDelete = () => {
+    //useState for confirming delete is not shown
     setConfirmDelete(false)
+    //useState for only showing the confirm delete / cancel option is not shown 
     setShowOnlyDelete(false)
   };
 

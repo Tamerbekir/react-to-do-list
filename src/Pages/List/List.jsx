@@ -21,11 +21,12 @@ const ToDo = () => {
   //useState for showing text when the user completed their list
   const [emptyList, setEmptyList] = useState()
 
-  const [confirmDelete, setConfirmDelete] = useState()
+  // const [confirmDelete, setConfirmDelete] = useState()
 
   //props from the edit component where we use a useState to ONLY show the edit form when the user clicks on the edit button- delete and complete will not show
   const [showOnlyEdit, setShowOnlyEdit] = useState()
 
+  //props from the delete component where we use a useState to ONLY show the delete button when the user clicks on the delete button- edit and complete will not show
   const [showOnlyDelete, setShowOnlyDelete] = useState()
 
 
