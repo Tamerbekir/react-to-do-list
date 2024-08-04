@@ -38,6 +38,8 @@ const ToDo = () => {
   //props from the delete component where we use a useState to ONLY show the delete button when the user clicks on the delete button- edit and complete will not show
   const [showOnlyDelete, setShowOnlyDelete] = useState()
 
+
+
   // useState for setting the names and values needed for the toDo list
   const [toDoList, setToDoList] = useState({
     item: '',
@@ -67,8 +69,6 @@ const ToDo = () => {
       priority: ''
     })
   }
-
-
 
   // Handling the function that creates the action once the 'add to list' button is clicked
   const handleToDoList = async () => {
