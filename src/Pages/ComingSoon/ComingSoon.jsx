@@ -22,7 +22,7 @@ const ComingSoon = () => {
             Saving to local storage.
             <br />
             Priority listed in order - and more!</p>
-          <button onClick={() => setComingSoon(false)}>Close</button>
+          <button className="closeBtn" onClick={() => setComingSoon(false)}>Close</button>
         </div>
       )
       }

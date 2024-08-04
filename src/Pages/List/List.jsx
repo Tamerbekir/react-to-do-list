@@ -26,6 +26,8 @@ const ToDo = () => {
   //props from the edit component where we use a useState to ONLY show the edit form when the user clicks on the edit button- delete and complete will not show
   const [showOnlyEdit, setShowOnlyEdit] = useState()
 
+  const [showOnlyDelete, setShowOnlyDelete] = useState()
+
 
   // const [completedText, setCompletedText] = useState()
 
@@ -227,23 +229,27 @@ const ToDo = () => {
                   {/* <button onClick={handleCompletedListItem}> Completed
                   </button> */}
                   {/* edit component, edit the index and is passing through the edit item from the edit component */}
-                  {!showOnlyEdit && (
+                  {!showOnlyEdit && !showOnlyDelete && (
                     <CompletedItem
                       index={index}
                       handleCompletedListItem={handleCompletedListItem}
                     />
                   )}
-                  <EditItem
-                    index={index}
-                    newItemAdded={newItemAdded}
-                    setNewItemAdded={setNewItemAdded}
-                    showOnlyEdit={showOnlyEdit}
-                    setShowOnlyEdit={setShowOnlyEdit}
-                  />
+                  {!showOnlyDelete && (
+                    <EditItem
+                      index={index}
+                      newItemAdded={newItemAdded}
+                      setNewItemAdded={setNewItemAdded}
+                      showOnlyEdit={showOnlyEdit}
+                      setShowOnlyEdit={setShowOnlyEdit}
+                    />
+                  )}
                   {!showOnlyEdit && (
                     <DeleteItem
                       index={index}
                       handleDeleteItem={handleDeleteItem}
+                      setShowOnlyDelete={setShowOnlyDelete}
+                      showOnlyDelete={showOnlyDelete}
                     />
                   )}
                 </div>

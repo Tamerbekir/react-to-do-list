@@ -101,11 +101,13 @@ input {
   margin-top: 10px;
 }
 
-.clearBtn {
+.clearBtn,
+.closeBtn {
   background-color: rgba(255, 166, 0, 0.874);
 }
 
-.clearBtn:hover {
+.clearBtn:hover,
+.closeBtn:hover {
   background-color: rgb(192, 149, 69);
 }
 
