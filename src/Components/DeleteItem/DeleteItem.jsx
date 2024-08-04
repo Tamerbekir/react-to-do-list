@@ -17,17 +17,6 @@ const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete
       //useState for hiding all buttons is false *buttons show again*
       setShowOnlyDelete(false)
     } catch (error) {
-      toast.error('There was an issue deleting your item, please try again later', {
-        position: 'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
       console.log('there was a problem deleting your item', error)
     }
   }
@@ -48,13 +37,9 @@ const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete
     setShowOnlyDelete(false)
   };
 
-  //creating a button to delete the item, using the handleDelete function
   return (
     <div>
       {!confirmDelete && !showOnlyDelete && (
-        // <button
-        //   className="deleteItemBtn"
-        //   onClick={() => setConfirmDelete(true)}> Delete</button>
         <IconButton onClick={deleteIcon}>
           <DeleteIcon className='deleteIcon' />
         </IconButton>

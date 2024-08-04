@@ -109,30 +109,44 @@ const ToDo = () => {
 
 
   // Handling the function to delete an item
-  const handleDeleteItem = (index) => {
-    //variable for updating the array, spreading the items in the array
-    const updatedList = [...newItemAdded];
-    //removing / splicing the index when we click the delete button (the ket is the index)
-    updatedList.splice(index, 1);
-    //update useState with the updated Array
-    setNewItemAdded(updatedList);
-    //if the updated list has a length of 0, then use the useState to display text found in the HTMl otherwise useState will not show
-    //when deleting, complete text is removed
-    // setCompletedText(false)
-    if (updatedList.length === 0) {
-      setEmptyList(true)
+  const handleDeleteItem = async (index) => {
+    try {//variable for updating the array, spreading the items in the array
+      const updatedList = [...newItemAdded];
+      //removing / splicing the index when we click the delete button (the ket is the index)
+      updatedList.splice(index, 1);
+      //update useState with the updated Array
+      setNewItemAdded(updatedList);
+      //if the updated list has a length of 0, then use the useState to display text found in the HTMl otherwise useState will not show
+      //when deleting, complete text is removed
+      // setCompletedText(false)
+      if (updatedList.length === 0) {
+        setEmptyList(true)
+      }
+      //deleted message
+      toast.error('Deleted!', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    } catch (error) {
+      toast.warning('There was an issue deleting your item, please try again later', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
-    toast.error('Deleted!', {
-      position: 'top-center',
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-      transition: Bounce,
-    })
   }
 
   // Function to handle marking an item as completed
@@ -193,9 +207,6 @@ const ToDo = () => {
               value={toDoList.date}
               onChange={handleToDoChange}
             />
-            {/* {addedText && (
-              <p className='confirmAddedText'>Added!</p>
-            )} */}
             <div className='addAndClearDiv'>
               {/* calling the function for adding an item */}
               <button onClick={handleToDoList}>Add To List</button>
@@ -214,25 +225,19 @@ const ToDo = () => {
                   <p>Date: {newItem.date}</p>
                 </div>
                 {/* delete component, deletes the index and is passing through the delete item fro the delete component */}
-                {/* Conditionally render based on completion status */}
                 <div className='actionBtns'>
-                  {/* {!showOnlyEdit && (
-                    <CompletedItem
-                      index={index}
-                      handleCompletedListItem={handleCompletedListItem}
-                    />
-                  )} */}
-                  {/* <button onClick={handleCompletedListItem}> Completed
-                  </button> */}
-                  {/* edit component, edit the index and is passing through the edit item from the edit component */}
+                  {/* edit component, edit the index and is passing through the edit item from the edit component. Complete button has a closed useState/goes away when user is either editing or deleting*/}
                   {!showOnlyEdit && !showOnlyDelete && (
                     <CompletedItem
+                      className="completedIcon"
                       index={index}
                       handleCompletedListItem={handleCompletedListItem}
                     />
                   )}
+                  {/* edit button goes away when the delete button is clicked */}
                   {!showOnlyDelete && (
                     <EditItem
+                      className="editIcon"
                       index={index}
                       newItemAdded={newItemAdded}
                       setNewItemAdded={setNewItemAdded}
@@ -240,8 +245,10 @@ const ToDo = () => {
                       setShowOnlyEdit={setShowOnlyEdit}
                     />
                   )}
+                  {/* delete button is closed /goes away when the user chooses to edit an item */}
                   {!showOnlyEdit && (
                     <DeleteItem
+                      className="deletedIcon"
                       index={index}
                       handleDeleteItem={handleDeleteItem}
                       setShowOnlyDelete={setShowOnlyDelete}

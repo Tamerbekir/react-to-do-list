@@ -1,3 +1,7 @@
+body {
+  background-color: #96909847;
+}
+
 .toDoDiv {
   max-width: 600px;
   margin: 40px auto;
@@ -78,6 +82,19 @@
   box-sizing: border-box;
   z-index: 1000;
   text-align: center;
+}
+
+
+.completedIcon {
+  color: #3d55c2;
+}
+
+.editIcon {
+  color: #69826e;
+}
+
+.deleteIcon {
+  color: rgb(132, 40, 40);
 }
 
 .listItem button {
