@@ -13,6 +13,12 @@ body {
   box-sizing: border-box;
 }
 
+.listItem {
+  margin: 3%;
+  border-radius: 20px;
+  border: 10px solid#78787928;
+}
+
 .floatingAddingItem {
   background-color: #3d55c27f;
   border-radius: 20px;
@@ -85,9 +91,40 @@ body {
 }
 
 
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .completedIcon {
   color: #3d55c2;
 }
+
+.completedIcon:hover,
+.editIcon:hover,
+.deleteIcon:hover {
+  animation: shake 0.5s ease-in-out;
+}
+
+
 
 .editIcon {
   color: #69826e;
@@ -241,23 +278,46 @@ button:hover {
   background-color: #8da492;
 }
 
-p {
+.priorityText,
+.toDoText,
+.notesText,
+.dateText {
+  color: #000000;
+  text-align: center;
+  font-size: 17px;
+  font-style: normal
+}
+
+.inputDateText,
+.inputNotesText,
+.inputTaskText,
+.inputPriorityText {
+  color: #193155;
+  width: 16%;
+  margin: auto;
+  text-align: center;
+  font-size: 18px;
   font-weight: 900;
 }
+
+.notesDiv,
+.taskDiv,
+.priorityDiv {
+  border-bottom: 5px solid #78787928;
+}
+
+.list:hover {
+  background-color: #3d55c20b;
+}
+
+
+
 
 .actionBtns {
   justify-content: space-evenly;
   display: flex;
   flex-direction: row;
 }
-
-/* 
-.comingSoonDiv {
-  width: 40%;
-  background-color: #3d56c2;
-  border: 3px solid #69826e;
-} */
-
 
 @media (max-width: 1300px) {
   .toDoDiv {
@@ -305,6 +365,19 @@ p {
 
   .actionBtns button {
     margin: 5%;
+  }
+
+  .priorityText,
+  .toDoText,
+  .notesText,
+  .dateText {
+    font-size: 18px;
+    font-style: normal
+  }
+
+  .inputNames {
+    font-size: 19px;
+    font-weight: 900;
   }
 
 

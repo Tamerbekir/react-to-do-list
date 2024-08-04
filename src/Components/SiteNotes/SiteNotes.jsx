@@ -14,7 +14,13 @@ const SiteNotes = () => {
       {siteNotes && (
         <div className="siteNotesDiv">
           <p className="siteNotesText">
-            A reminder that all your items are saved on your local machine. If you remove your browser data, or use another device you will no longer have access to your information.
+            A reminder that all your items are saved on your local device- that means the device your saving your tasks on. If you remove your browser data or local data on your device you will lose your information.
+            <br />
+            <br />
+            Feedback is always welcome!
+            <br />
+            <br />
+            Reach out to me at <a href="www.tamerbekir.com">www.tamerbekir.com</a>
           </p>
           <button className="closeBtn" onClick={() => setSiteNotes(false)}>Close</button>
         </div>

@@ -20,7 +20,9 @@ const ComingSoon = () => {
             <br />
             See all items that were completed.
             <br />
-            Priority listed in order - and more!</p>
+            Different colors for past, current or future dates and more!
+            <br />
+            Be on the lookout- updates are always rolling out!</p>
           <button className="closeBtn" onClick={() => setComingSoon(false)}>Close</button>
         </div>
       )

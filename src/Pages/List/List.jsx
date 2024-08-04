@@ -194,7 +194,7 @@ const ToDo = () => {
               className="priorityInput"
               placeholder='Priority...(e.g high, low or 1, 5, etc)'
               name='priority'
-              type='number'
+              type='text'
               value={toDoList.priority}
               onChange={handleToDoChange}
             />
@@ -233,10 +233,22 @@ const ToDo = () => {
             {newItemAdded.map((newItem, index) => (
               <div className="listItem" key={index}>
                 <div className="list">
-                  <p className='priorityText' > Priority: {newItem.priority}</p>
-                  <p className='toDoText'>Task: {newItem.item}</p>
-                  <p className='notesText' >Notes: {newItem.notes}</p>
-                  <p className='dateText' >Date: {newItem.date}</p>
+                  <div className="priorityDiv">
+                    <p className='inputPriorityText'>Priority</p>
+                    <p className='priorityText'>{newItem.priority}</p>
+                  </div>
+                  <div className="taskDiv">
+                    <p className='inputTaskText'>Task</p>
+                    <p className='toDoText'>{newItem.item}</p>
+                  </div>
+                  <div className="notesDiv">
+                    <p className='inputNotesText'>Notes</p>
+                    <p className='notesText'>{newItem.notes}</p>
+                  </div>
+                  <div className="dateDivText">
+                    <p className='inputDateText'>Date</p>
+                    <p className='dateText'>{newItem.date}</p>
+                  </div>
                 </div>
                 {/* delete component, deletes the index and is passing through the delete item fro the delete component */}
                 <div className='actionBtns'>
