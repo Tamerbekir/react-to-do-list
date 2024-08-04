@@ -1,21 +1,35 @@
 import { useState } from 'react';
 import DeleteItem from '../../Components/DeleteItem/DeleteItem';
 import EditItem from '../../Components/EditItem/EditItem';
+import CompletedItem from '../../Components/CompletedItem/CompletedItem'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast, Bounce } from 'react-toastify'
+
 
 const ToDo = () => {
   // Adding a count for each time an item is added
   const [count, setCount] = useState(1);
   // useState for adding a new item which is being added to an array
-  const [newItemAdded, setNewItemAdded] = useState([])
+  const [newItemAdded, setNewItemAdded] = useState([]);
 
   //useState for adding a confirm text once added to the list
-  const [addedText, setAddedText] = useState()
+  // const [addedText, setAddedText] = useState()
 
   //useState for setting text when deleted
-  const [deletedText, setDeletedText] = useState('')
+  // const [deletedText, setDeletedText] = useState('')
 
+  //useState for showing text when the user completed their list
   const [emptyList, setEmptyList] = useState()
 
+  const [confirmDelete, setConfirmDelete] = useState()
+
+  // const [completedText, setCompletedText] = useState()
+
+  const [error, setError] = useState({
+    item: '',
+    date: '',
+    priority: count
+  })
 
   // useState for setting the names and values needed for the toDo list
   const [toDoList, setToDoList] = useState({
@@ -23,7 +37,8 @@ const ToDo = () => {
     notes: '',
     date: '',
     priority: count
-  });
+  })
+
   // Handling the change in the input fields
   const handleToDoChange = (event) => {
     const { name, value } = event.target;
@@ -49,6 +64,17 @@ const ToDo = () => {
   // Handling the function that creates the action once the 'add to list' button is clicked
   const handleToDoList = async () => {
     try {
+      toast.success('Added!', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
       // Adding the new items so they can be displayed on the page
       setNewItemAdded([...newItemAdded, toDoList]);
       // Update the count
@@ -61,15 +87,18 @@ const ToDo = () => {
         priority: count + 1
       });
       //When a to-do is added, useState is called to display an open text field where text saying ADDED is displayed within the HTML
-      setAddedText(' ')
+      // setAddedText(' ')
       // when a to-do is added, the deleted text is cleared via useState
-      setDeletedText('')
+      // setDeletedText(false)
       //if the user is adding to their list, then the list cannot be empty, thus we set the emptyList useState to false
       setEmptyList(false)
+      //if user is adding to the list, the complete text is gone
+      // setCompletedText(false)
     } catch (error) {
       console.log(error);
     }
-  };
+  }
+
 
   // Handling the function to delete an item
   const handleDeleteItem = (index) => {
@@ -80,14 +109,48 @@ const ToDo = () => {
     //update useState with the updated Array
     setNewItemAdded(updatedList);
     //when a to-do is deleted, useState is called with an empty text field which is used in the html
-    setDeletedText(' ')
-
+    // setDeletedText(' ')
     //if the updated list has a length of 0, then use the useState to display text found in the HTMl otherwise useState will not show
+    //when deleting, complete text is removed
+    // setCompletedText(false)
     if (updatedList.length === 0) {
       setEmptyList(true)
     }
-  };
+    toast.error('Deleted!', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: Bounce,
+    })
+  }
 
+  // Function to handle marking an item as completed
+  const handleCompletedListItem = (index) => {
+    toast.success('Completed!', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: Bounce,
+    })
+    const updatedList = [...newItemAdded];
+    //! Not supposed to be slice- will be added to local storage. Just for now
+    updatedList.splice(index, 1);
+    setNewItemAdded(updatedList);
+    //when completing a to do, delete text is removed
+    // setDeletedText(false)
+    //useState for an empty text field used to inform the user the task is complete 
+    // setCompletedText(' ')
+  };
 
   return (
     <div className="toDoDiv">
@@ -127,9 +190,9 @@ const ToDo = () => {
               value={toDoList.date}
               onChange={handleToDoChange}
             />
-            {addedText && (
+            {/* {addedText && (
               <p className='confirmAddedText'>Added!</p>
-            )}
+            )} */}
             <div className='addAndClearDiv'>
               {/* calling the function for adding an item */}
               <button onClick={handleToDoList}>Add To List</button>
@@ -148,33 +211,46 @@ const ToDo = () => {
                   <p>Date: {newItem.date}</p>
                 </div>
                 {/* delete component, deletes the index and is passing through the delete item fro the delete component */}
-                <div>
+                {/* Conditionally render based on completion status */}
+                <div className='actionBtns'>
+                  <CompletedItem
+                    index={index}
+                    handleCompletedListItem={handleCompletedListItem}
+                  />
+                  {/* <button onClick={handleCompletedListItem}> Completed
+                  </button> */}
+                  {/* edit component, edit the index and is passing through the edit item from the edit component */}
+                  <EditItem
+                    index={index}
+                    newItemAdded={newItemAdded}
+                    setNewItemAdded={setNewItemAdded}
+                  />
                   <DeleteItem
                     index={index}
                     handleDeleteItem={handleDeleteItem}
                   />
                 </div>
-                {/* edit component, edit the index and is passing through the edit item from the edit component */}
-                <EditItem
-                  index={index}
-                  newItemAdded={newItemAdded}
-                  setNewItemAdded={setNewItemAdded}
-                />
               </div>
             ))}
           </div>
         </div>
         <div>
-          {deletedText && (
-            <p className='deletedText'>Deleted!</p>
-          )}
+          {/* useState for deleted text appears here as well as a completed text */}
+          {/* <div className='floatingActionText'>
+            {completedText && (
+              <p>Completed!</p>
+            )}
+            {deletedText && (
+              <p className='deletedText'>Deleted!</p>
+            )}
+          </div> */}
         </div>
-        {/* useState for deleted text appears here */}
       </div>
       {/* Once the list goes empty, the user will get this text. If the user adds to the list, it will clear */}
       {emptyList && (
         <p className='nothingLeftText'>Wow, you have nothing to do? Enjoy this sweet moment while it lasts.</p>
       )}
+      <ToastContainer />
     </div >
   )
 }

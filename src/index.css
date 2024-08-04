@@ -23,13 +23,22 @@
   z-index: 1000;
 }
 
+.actionBtns {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button {
+  width: 60;
+  margin: 5px 0;
+}
+
+
 input {
   margin: 5px 0;
   display: block;
   width: calc(100% - 22px);
-  /* Adjust for padding */
   height: 40px;
-  /* Increased for better touch targets */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -52,7 +61,6 @@ input {
 
 .addToListTag {
   font-size: 24px;
-  /* Adjusted for better readability */
   color: white;
   margin-bottom: 10px;
 }
@@ -60,7 +68,6 @@ input {
 .confirmAddedText {
   color: #69826e;
   font-size: 18px;
-  /* Adjusted for better readability */
   margin-top: 10px;
 }
 
@@ -87,7 +94,6 @@ button {
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
-  /* Larger for better touch targets */
 }
 
 button:hover {
@@ -101,6 +107,7 @@ button:hover {
 .deleteItemBtn:hover {
   background-color: rgb(132, 40, 40);
 }
+
 
 .list {
   background-color: #fff;
@@ -121,11 +128,7 @@ button:hover {
   font-size: 24px;
 }
 
-.deletedText {
-  text-align: center;
-  font-size: 18px;
-  color: #69826e;
-}
+
 
 .editForm {
   background-color: #e4e3e3;
@@ -158,11 +161,11 @@ p {
   font-weight: 900;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 1300px) {
   .toDoDiv {
     margin: 20px auto;
     padding: 15px;
+
   }
 
   .floatingAddingItem {
@@ -177,10 +180,16 @@ p {
     font-size: 20px;
   }
 
+  .actionBtns {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
   button {
-    width: 100%;
+    width: 60;
     margin: 5px 0;
   }
+
 
   .addAndClearDiv {
     display: flex;

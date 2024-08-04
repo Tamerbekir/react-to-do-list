@@ -8,9 +8,24 @@ const DeleteItem = ({ index, handleDeleteItem }) => {
   const [confirmDelete, setConfirmDelete] = useState(false)
 
   //a function for deleting the list item. From our prop, we use the index of the list item as a parameter
-  const handleDelete = () => {
-    handleDeleteItem(index)
-    setConfirmDelete(false)
+  const handleDelete = async () => {
+    try {
+      handleDeleteItem(index)
+      setConfirmDelete(false)
+    } catch (error) {
+      toast.error('There was an issue deleting your item, please try again later', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      console.log('there was a problem deleting your item', error)
+    }
   }
 
   //creating a button to delete the item, using the handleDelete function
@@ -24,10 +39,12 @@ const DeleteItem = ({ index, handleDeleteItem }) => {
       {confirmDelete && (
         <div>
           <p>Are you sure you want to delete this?</p>
-          <button
-            className="confirmDelete"
-            onClick={handleDelete}>Confirm Delete</button>
-          <button onClick={() => setConfirmDelete(false)}>Cancel</button>
+          <div className='confirmDeleteBtn'>
+            <button
+              className="confirmDelete"
+              onClick={handleDelete}>Confirm Delete</button>
+            <button onClick={() => setConfirmDelete(false)}>Cancel</button>
+          </div>
         </div>
       )}
     </div>
