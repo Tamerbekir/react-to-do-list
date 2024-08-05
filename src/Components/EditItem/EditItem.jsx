@@ -3,6 +3,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast, Bounce } from 'react-toastify';
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
+
 
 
 
@@ -96,10 +98,11 @@ const EditItem = ({ index, newItemAdded, setNewItemAdded, showOnlyEdit, setShowO
   return (
     <div className="editFormDiv">
       {!confirmEdit && !showOnlyEdit && (
-        // <button className="editBtn" onClick={showEditForm}>Edit</button>
-        <IconButton onClick={() => setShowOnlyEdit(true)}>
-          <EditIcon className='editIcon' onClick={showEditForm} />
-        </IconButton>
+        <Tooltip title="Edit">
+          <IconButton onClick={() => setShowOnlyEdit(true)}>
+            <EditIcon className='editIcon' onClick={showEditForm} />
+          </IconButton>
+        </Tooltip>
       )}
 
 

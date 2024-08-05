@@ -4,10 +4,12 @@ import EditItem from '../../Components/EditItem/EditItem';
 import CompletedItem from '../../Components/CompletedItem/CompletedItem'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast, Bounce } from 'react-toastify'
-import { Box } from '@mui/material';
+import BadgeCount from '../../Components/Badge/Badge'
 
 
-const ToDo = () => {
+
+
+const ToDo = ({ handleTaskCountChange }) => {
   // useState for adding a new item which is being added to an array
   const [newItemAdded, setNewItemAdded] = useState(() => {
     // Taking the newly added item and adding into local storage, called "toDoList"
@@ -114,8 +116,9 @@ const ToDo = () => {
         item: '',
         notes: '',
         date: '',
-        priority: 'No Priority'
+        priority: ''
       });
+      handleTaskCountChange()
     } catch (error) {
       console.log(error);
     }
@@ -189,7 +192,6 @@ const ToDo = () => {
       <div>
         <div>
           <div className='floatingAddingItem'>
-            <p className='addToListTag'>Add to your list</p>
             <input
               className="priorityInput"
               placeholder='Priority...(e.g high, low or 1, 5, etc)'
@@ -221,6 +223,7 @@ const ToDo = () => {
               type='date'
               value={toDoList.date}
             />
+
             <div className='addAndClearDiv'>
               {/* calling the function for adding an item */}
               <button onClick={handleToDoList}>Add Task</button>
@@ -228,7 +231,14 @@ const ToDo = () => {
               <button className='clearBtn' onClick={handleClearFields}>Clear</button>
             </div>
           </div>
-          <div>
+          {/* Brought in as a prop, it gives the number of tasks in the array and displays it as a badge */}
+          {!emptyList && (
+            <>
+              <p className='tasksLeftText'>Tasks Remaining</p>
+              <BadgeCount tasksLeft={newItemAdded.length} />
+            </>
+          )}
+          <div >
             {/* mapping over our items, giving it a name newItem and using the index at which it is located within the array */}
             {newItemAdded.map((newItem, index) => (
               <div className="listItem" key={index}>
@@ -287,15 +297,6 @@ const ToDo = () => {
           </div>
         </div>
         <div>
-          {/* useState for deleted text appears here as well as a completed text */}
-          {/* <div className='floatingActionText'>
-            {completedText && (
-              <p>Completed!</p>
-            )}
-            {deletedText && (
-              <p className='deletedText'>Deleted!</p>
-            )}
-          </div> */}
         </div>
       </div>
       {/* Once the list goes empty, the user will get this text. If the user adds to the list, it will clear */}

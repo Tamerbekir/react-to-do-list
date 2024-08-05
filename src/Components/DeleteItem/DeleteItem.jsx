@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
+
 //passing through the index from the list item from the List jsx
 //passing through the handleDeleteIntem to the List jsx to use with out DeleteItem component
 const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete }) => {
@@ -40,9 +42,11 @@ const DeleteItem = ({ index, handleDeleteItem, showOnlyDelete, setShowOnlyDelete
   return (
     <div>
       {!confirmDelete && !showOnlyDelete && (
-        <IconButton onClick={deleteIcon}>
-          <DeleteIcon className='deleteIcon' />
-        </IconButton>
+        <Tooltip title="Delete">
+          <IconButton onClick={deleteIcon}>
+            <DeleteIcon className='deleteIcon' />
+          </IconButton>
+        </Tooltip>
       )}
       {confirmDelete && showOnlyDelete && (
         <div>
