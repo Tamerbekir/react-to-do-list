@@ -20,7 +20,7 @@ const SiteNotes = () => {
             Feedback is always welcome!
             <br />
             <br />
-            Reach out to me at <a href="www.tamerbekir.com">www.tamerbekir.com</a>
+            Reach out to me at www.tamerbekir.com
           </p>
           <button className="closeBtn" onClick={() => setSiteNotes(false)}>Close</button>
         </div>

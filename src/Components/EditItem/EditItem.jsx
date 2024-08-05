@@ -7,10 +7,10 @@ import Tooltip from '@mui/material/Tooltip';
 
 
 
-
+//passing through props from List jsx
 const EditItem = ({ index, newItemAdded, setNewItemAdded, showOnlyEdit, setShowOnlyEdit }) => {
 
-  //useState to confirm if the user wants to save their changes. If false, useState cancels out of the edit form
+  //useState to confirm if the user wants to save their changes. If false, useState is not active by default and does not show edit form
   const [confirmEdit, setConfirmEdit] = useState(false);
 
 

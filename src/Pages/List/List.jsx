@@ -35,10 +35,11 @@ const ToDo = ({ handleTaskCountChange }) => {
 
 
   //props from the edit component where we use a useState to ONLY show the edit form when the user clicks on the edit button- delete and complete will not show
-  const [showOnlyEdit, setShowOnlyEdit] = useState()
+  //set to false by default (should not show unless said otherwise)
+  const [showOnlyEdit, setShowOnlyEdit] = useState(false)
 
   //props from the delete component where we use a useState to ONLY show the delete button when the user clicks on the delete button- edit and complete will not show
-  const [showOnlyDelete, setShowOnlyDelete] = useState()
+  const [showOnlyDelete, setShowOnlyDelete] = useState(false)
 
 
 
@@ -222,6 +223,7 @@ const ToDo = ({ handleTaskCountChange }) => {
               name='date'
               type='date'
               value={toDoList.date}
+              onChange={handleToDoChange}
             />
 
             <div className='addAndClearDiv'>

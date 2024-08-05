@@ -1,7 +1,5 @@
 import Stack from '@mui/material/Stack';
 import Badge from '@mui/material/Badge';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import { useState } from 'react';
 
 
 //boiler plate from material mui. Added prop to pass through to list jsx
