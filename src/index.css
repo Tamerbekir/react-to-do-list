@@ -19,6 +19,30 @@ body {
   border: 10px solid#78787928;
 }
 
+.addNewTaskBtn {
+  width: 100%;
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff00;
+  text-align: center;
+}
+
+.viewTaskBtn:hover {
+  transition: .3s;
+  font-size: 18px;
+}
+
+.viewTaskBtn {
+  background-color: #3d55c2df;
+}
+
+.addNewTaskBtn:hover {
+  background-color: transparent;
+  transition: .3s;
+  font-size: 22px;
+}
+
 .floatingAddingItem {
   background-color: #3d55c27f;
   border-radius: 20px;
@@ -125,7 +149,6 @@ body {
 }
 
 
-
 .editIcon {
   color: #69826e;
 }
@@ -186,13 +209,27 @@ input {
   margin-top: 10px;
 }
 
-.clearBtn,
-.closeBtn {
-  background-color: rgba(255, 166, 0, 0.874);
+.clearBtn {
+  background-color: rgba(255, 166, 0, 0.711);
 }
 
-.clearBtn:hover,
+.closeBtn {
+  border-color: rgb(189, 187, 187);
+  background-color: rgb(189, 187, 187);
+}
+
+.taskCloseBtn {
+  margin-left: 34%;
+  border-color: rgb(189, 187, 187);
+  background-color: rgb(189, 187, 187);
+}
+
 .closeBtn:hover {
+  border-color: rgb(151, 150, 150);
+  background-color: rgb(151, 150, 150);
+}
+
+.clearBtn:hover {
   background-color: rgb(192, 149, 69);
 }
 
@@ -366,15 +403,14 @@ button:hover {
     max-width: none;
   }
 
+
   .addToListTag {
     font-size: 20px;
   }
 
   .listItem button {
-    width: 65%;
     margin: 5px 0;
   }
-
 
 
   .priorityDiv {
@@ -393,11 +429,21 @@ button:hover {
     font-style: normal
   }
 
+
+
+  /* .addNewTaskBtn {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff00;
+    text-align: center;
+  } */
+
+
   .inputNames {
     font-size: 19px;
     font-weight: 900;
   }
-
 
   .addAndClearDiv {
     display: flex;
