@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 import DeleteItem from '../../Components/DeleteItem/DeleteItem';
 import EditItem from '../../Components/EditItem/EditItem';
-import CompletedItem from '../../Components/CompletedItem/CompletedItem'
+// import CompletedItem from '../../Components/CompletedItem/CompletedItem'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast, Bounce } from 'react-toastify'
 import BadgeCount from '../../Components/Badge/Badge'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Collapse, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import CompletedList from '../CompletedList/CompletedList'
+import { IconButton, Tooltip } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 
 
 
 
-
-const ToDo = ({ handleTaskCountChange }) => {
+const ToDo = ({ handleTaskCountChange, completed }) => {
   // useState for adding a new item which is being added to an array
   const [newItemAdded, setNewItemAdded] = useState(() => {
     // Taking the newly added item and adding into local storage, called "toDoList"
@@ -37,7 +40,7 @@ const ToDo = ({ handleTaskCountChange }) => {
 
 
   //useState for showing text when the user completed their list
-  const [emptyList, setEmptyList] = useState()
+  const [emptyList, setEmptyList] = useState(false)
 
   //props from the edit component where we use a useState to ONLY show the edit form when the user clicks on the edit button- delete and complete will not show
   //set to false by default (should not show unless said otherwise)
@@ -54,8 +57,14 @@ const ToDo = ({ handleTaskCountChange }) => {
 
   //useState to define when a task is expanded, set to off/false by default
   //useState to define when a user decides to close the tasks by clicking a button that sets the useState back to false
-  const [taskOpen, setTaskOpen] = useState(false)
+  const [taskOpen, setTaskOpen] = useState({})
   const [showTask, setShowTask] = useState(false)
+
+  const [completedItem, setCompletedItem] = useState(false)
+
+
+
+
 
 
 
@@ -88,25 +97,12 @@ const ToDo = ({ handleTaskCountChange }) => {
     })
   }
 
-  // This function handles opening or closing a specific task based on the index.
-  // It toggles the state of the task, ensuring only one task is affected at a time.
-  const singleTaskIndex = (index) => {
-    // Use the previous state (prev) to update the current state of setTaskOpen.
-    // Spread the existing state to maintain other tasks states.
-    setTaskOpen((prev) => ({
-      // Spread the current state of task open/closed statuses.
-      ...prev,
-      // Toggle on or off at the state of the task at the given index.
-      [index]: !prev[index]
-    }))
-  };
 
   // Function to handle the click event for a specific task.
   // It calls singleTaskIndex with the task's index to toggle its state.
   const handleTaskClick = (index) => {
     singleTaskIndex(index)
   }
-
 
 
   // Handling the function that creates the action once the 'add to list' button is clicked
@@ -149,7 +145,7 @@ const ToDo = ({ handleTaskCountChange }) => {
         setEmptyList(false)
 
         //when adding a task, the task is not expanded thus set to false
-        setShowTask(false)
+        setShowTask(true)
       }
       // Clear the todo list after added. However, if the user does not choose a priority, 'no priority' will be displayed when adding. If the user picks a priority it will show that instead
       setToDoList({
@@ -165,6 +161,18 @@ const ToDo = ({ handleTaskCountChange }) => {
     }
   }
 
+  // This function handles opening or closing a specific task based on the index.
+  // It toggles the state of the task, ensuring only one task is affected at a time.
+  const singleTaskIndex = (index) => {
+    // Use the previous state (prev) to update the current state of setTaskOpen.
+    // Spread the existing state to maintain other tasks states.
+    setTaskOpen((prev) => ({
+      // Spread the current state of task open/closed statuses.
+      ...prev,
+      // Toggle on or off at the state of the task at the given index.
+      [index]: !prev[index]
+    }))
+  };
 
   // Handling the function to delete an item
   const handleDeleteItem = async (index) => {
@@ -216,14 +224,20 @@ const ToDo = ({ handleTaskCountChange }) => {
     //is item in the array or not in the array. 
     //this toggle happens when we click on the completed icon below
     updatedList[index].completed = !updatedList[index].completed;
+    //completed items that are completed on the page will be sent to local Storage
+    localStorage.setItem('toDoList', JSON.stringify(updatedList))
     setNewItemAdded(updatedList);
+    // setCompletedItem(true)
   };
+
+
 
 
 
   return (
     <div className="toDoDiv">
       <div>
+
         <div>
           <div className='floatingAddingItem'>
             {!showAddTask && (
@@ -242,46 +256,44 @@ const ToDo = ({ handleTaskCountChange }) => {
             <Collapse in={openAddTask}>
               <div id="collapse-content">
                 <Card>
-                  <Card.Body>
-                    <input
-                      className="priorityInput"
-                      placeholder='Priority...(e.g high, low or 1, 5, etc)'
-                      name='priority'
-                      type='text'
-                      value={toDoList.priority}
-                      onChange={handleToDoChange}
-                    />
-                    <input
-                      className="ItemInput"
-                      placeholder='Add task...'
-                      name='item'
-                      type='text'
-                      value={toDoList.item}
-                      onChange={handleToDoChange}
-                    />
-                    <input
-                      className="notesInput"
-                      placeholder='Notes...'
-                      name='notes'
-                      type='text'
-                      value={toDoList.notes}
-                      onChange={handleToDoChange}
-                    />
-                    <input
-                      className="dateInput"
-                      placeholder='date'
-                      name='date'
-                      type='date'
-                      value={toDoList.date}
-                      onChange={handleToDoChange}
-                    />
-                    <div className='addAndClearDiv'>
-                      {/* calling the function for adding an item */}
-                      <button onClick={handleToDoList}>Add</button>
-                      {/* useState for clearing the input fields */}
-                      <button className='clearBtn' onClick={handleClearFields}>Clear</button>
-                    </div>
-                  </Card.Body>
+                  <input
+                    className="priorityInput"
+                    placeholder='Priority...(e.g high, low or 1, 5, etc)'
+                    name='priority'
+                    type='text'
+                    value={toDoList.priority}
+                    onChange={handleToDoChange}
+                  />
+                  <input
+                    className="ItemInput"
+                    placeholder='Add task...'
+                    name='item'
+                    type='text'
+                    value={toDoList.item}
+                    onChange={handleToDoChange}
+                  />
+                  <input
+                    className="notesInput"
+                    placeholder='Notes...'
+                    name='notes'
+                    type='text'
+                    value={toDoList.notes}
+                    onChange={handleToDoChange}
+                  />
+                  <input
+                    className="dateInput"
+                    placeholder='date'
+                    name='date'
+                    type='date'
+                    value={toDoList.date}
+                    onChange={handleToDoChange}
+                  />
+                  <div className='addAndClearDiv'>
+                    {/* calling the function for adding an item */}
+                    <button onClick={handleToDoList}>Add</button>
+                    {/* useState for clearing the input fields */}
+                    <button className='clearBtn' onClick={handleClearFields}>Clear</button>
+                  </div>
                 </Card>
                 {/* When close btn is closes, Add Task shows back up and close btn closes */}
                 <button className='taskCloseBtn'
@@ -302,10 +314,16 @@ const ToDo = ({ handleTaskCountChange }) => {
             </>
           )}
 
-
+          <div className='completedTaskDiv'>
+            <Link to='/completed'>
+              <button className='completedTaskBtn'>View Completed Tasks</button>
+            </Link>
+          </div>
 
           <div >
             {/* mapping over our items, giving it a name newItem and using the index at which it is located within the array */}
+
+
             {newItemAdded.map((newItem, index) => (
               <div className="listItem" key={index}>
                 <button
@@ -313,12 +331,13 @@ const ToDo = ({ handleTaskCountChange }) => {
                   onClick={() => {
                     handleTaskClick(index)
                     setShowTask(true)
-                    showTask(true)
                   }}
                   aria-controls={`collapse-content-${index}`}
                   aria-expanded={taskOpen[index]}
                 >
                   {newItem.item}
+                  <br />
+                  {newItem.date}
                 </button>
                 <Collapse in={taskOpen[index]}>
                   <div id="collapse-content">
@@ -350,15 +369,29 @@ const ToDo = ({ handleTaskCountChange }) => {
                 <div className='actionBtns'>
                   {/* edit component, edit the index and is passing through the edit item from the edit component. Complete button has a closed useState/goes away when user is either editing or deleting*/}
 
-                  {!showOnlyEdit && !showOnlyDelete && (
-                    <CompletedItem
-                      className="completedIcon"
-                      index={index}
-                      handleCompletedListItem={handleCompletedListItem}
-                      // completed(from the function) is defined as the item in the array
-                      completed={newItem.completed}
-                    />
+                  {!showOnlyEdit && !showOnlyDelete && completedItem && (
+                    <Tooltip title='Complete'>
+                      <div key={index}
+                      >
+                        <p>Completed</p>
+                      </div>
+                    </Tooltip>
                   )}
+
+                  {!completedItem && !showOnlyDelete && !showOnlyEdit && (
+                    <Tooltip title='Complete'>
+                      <div>
+                        <IconButton>
+                          <CheckIcon
+                            key={index}
+                            onClick={() => handleCompletedListItem(index)}
+                            className='completedIcon' />
+                        </IconButton>
+                      </div>
+                    </Tooltip>
+                  )}
+
+
                   {/* edit button goes away when the delete button is clicked */}
                   {!showOnlyDelete && (
                     <EditItem
@@ -370,6 +403,7 @@ const ToDo = ({ handleTaskCountChange }) => {
                       setShowOnlyEdit={setShowOnlyEdit}
                     />
                   )}
+
                   {/* delete button is closed /goes away when the user chooses to edit an item */}
                   {!showOnlyEdit && (
                     <DeleteItem

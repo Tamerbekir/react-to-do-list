@@ -13,10 +13,12 @@ body {
   box-sizing: border-box;
 }
 
+
+
 .listItem {
   margin: 3%;
   border-radius: 20px;
-  border: 10px solid#78787928;
+  /* border: 3px solid #96909847; */
 }
 
 .addNewTaskBtn {
@@ -27,6 +29,7 @@ body {
   background-color: #ffffff00;
   text-align: center;
 }
+
 
 .completedText {
   margin-top: 3%;
@@ -277,8 +280,6 @@ button:hover {
 .list {
   background-color: #fff;
   padding: 15px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
 }

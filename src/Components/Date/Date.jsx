@@ -1,5 +1,5 @@
 
-const DateDisplay = () => {
+const DateDisplay = ({ }) => {
   // Create a new Date object for the current date
   const today = new Date();
 
